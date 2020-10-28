@@ -9,6 +9,8 @@ os:
   - osx
   - windows
 
+dist: focal # esempio: per scegliere la versione di linux
+
 arch:
   - amd64
   - arm64
