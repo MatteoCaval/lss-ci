@@ -4,5 +4,8 @@ git:
   depth: false # Accepts false or any number representing the commit count, defaults to 50
   autocrlf: input # Prevents git from trying to be smart with line endings
 
+install:
+  - true
+
 script:
-  - ./gradlew check # da problemi permessi via windows, altrimenti git update-index --chmod=+x gradlew, altrimenti scrivo sh gradlew check
+  - ./gradlew check # da problemi permessi via windows perche git traccia i permessi di unix, altrimenti git update-index --chmod=+x gradlew, altrimenti scrivo sh gradlew check
