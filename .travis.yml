@@ -3,3 +3,6 @@ language: java
 git:
   depth: false # Accepts false or any number representing the commit count, defaults to 50
   autocrlf: input # Prevents git from trying to be smart with line endings
+
+script:
+  - ./gradlew check
