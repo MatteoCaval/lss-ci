@@ -5,4 +5,4 @@ git:
   autocrlf: input # Prevents git from trying to be smart with line endings
 
 script:
-  - ./gradlew check
+  - ./gradlew check # da problemi permessi via windows, altrimenti git update-index --chmod=+x gradlew, altrimenti scrivo sh gradlew check
