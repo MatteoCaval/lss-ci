@@ -7,10 +7,7 @@ git:
 os:
   - linux
   - osx
-
-arch:
-  - amd64
-  - arm64
+  - windows
 
 install:
   - true # disable install
