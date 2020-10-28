@@ -1,4 +1,4 @@
-language: java
+language: minimal # java altrimenti nada windows
 
 git:
   depth: false # Accepts false or any number representing the commit count, defaults to 50
@@ -9,8 +9,23 @@ os:
   - osx
   - windows
 
+arch:
+  - amd64
+  - arm64
+
+env:
+  global:
+    - GRAVIS_REPO="https://github.com/DanySK/Gravis-CI.git" # Convenience variable for shortening commands
+    - GRAVIS="$HOME/gravis" # Convenience variable for shortening commands
+    - JDK="adopt@1.11.0-8" # Partial versions supported, adopt@1.11 would pull the latest adopt 1.11
+
+
+before_install:
+  - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS # Check out the script set
+  - source $GRAVIS/install-jdk # Install the JDK you configured in the $JDK environment variable
+
 install:
   - true # disable install
 
 script:
-  - ./gradlew check # da problemi permessi via windows perche git traccia i permessi di unix, altrimenti git update-index --chmod=+x gradlew, altrimenti scrivo sh gradlew check
+  - travis_retry ./gradlew check # da problemi permessi via windows perche git traccia i permessi di unix, altrimenti git update-index --chmod=+x gradlew, altrimenti scrivo sh gradlew check
