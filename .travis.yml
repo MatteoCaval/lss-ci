@@ -16,10 +16,17 @@ arch:
   - arm64
 
 env:
-  global:
+  global: # variabili che saranno presenti in tutte le build
     - GRAVIS_REPO="https://github.com/DanySK/Gravis-CI.git" # Convenience variable for shortening commands
     - GRAVIS="$HOME/gravis" # Convenience variable for shortening commands
     - JDK="adopt@1.11.0-8" # Partial versions supported, adopt@1.11 would pull the latest adopt 1.11
+  matrix: # variabili prese in modo selettivo, questa ci da 6 jdk
+    - JDK="adopt@1.11"
+    - JDK="adopt@1.8"
+    - JDK="adopt@1.14"
+    - JDK="adopt-openj9@1.11"
+    - JDK="adopt-openj9@1.8"
+    - JDK="adopt-openj9@1.14"
 
 
 before_install:
