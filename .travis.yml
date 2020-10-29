@@ -52,7 +52,7 @@ jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o ag
     - arch: arm64
       env: JDK="adopt-openj9@1.14"
     - <<: *reference_machine # metto qua dentro la cosa puntata da refmachine
-      stage: check
+      stage: test
   include: # i job messi nell'include fanno override di quelli definiti nel comportamento generale
     - <<: *reference_machine
       stage: check
