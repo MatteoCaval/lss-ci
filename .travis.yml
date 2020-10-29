@@ -37,7 +37,9 @@ env:
     - JDK="adopt-openj9@1.14"
 
 stages:
-  - check
+  - Compile
+  - Kotlin Style Check
+  - Check
   - test # esiste già, se non lo metto check verrebbe eseguito dopo test
 
 _reference_machine: &reference_machine
@@ -54,6 +56,12 @@ jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o ag
     - <<: *reference_machine # metto qua dentro la cosa puntata da refmachine
       stage: test
   include: # i job messi nell'include fanno override di quelli definiti nel comportamento generale
+    - <<: *reference_machine
+      stage: Compile
+      script: ./gradlew compile --parallel
+    - <<: *reference_machine
+      stage: Kotlin Style Check
+      script: ./gradlew detekt ktlintCheck --parallel
     - <<: *reference_machine
       stage: check
       script:
