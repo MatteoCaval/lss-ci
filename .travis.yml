@@ -68,10 +68,11 @@ jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o ag
       stage: Compile
       script: ./gradlew compileKotlin --parallel
       workspaces:
-        create: *workspace_name
-        paths:
-          - "$TRAVIS_BUILD_DIR"
-          - "$HOME./gradle" #qua c'è il wrapper, non dovrei doverlo riscaricare
+        create:
+          name: *workspace_name
+          paths:
+            - "$TRAVIS_BUILD_DIR"
+            - "$HOME./gradle" #qua c'è il wrapper, non dovrei doverlo riscaricare
     - <<: *reference_machine
       stage: Kotlin Style Check
       <<: *import_workspace
