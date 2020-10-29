@@ -1,3 +1,11 @@
+_reference_os: &reference_os
+  linux
+_reference_arch: &reference_arch
+  amd64
+_reference_jdk: &reference_jdk
+  JDK="adopt@1.11"
+
+
 language: minimal # java altrimenti nada windows
 
 git:
@@ -5,14 +13,14 @@ git:
   autocrlf: input # Prevents git from trying to be smart with line endings
 
 os:
-  - linux
+  - *reference_os
   - osx
   - windows
 
 dist: focal # esempio: per scegliere la versione di linux
 
 arch:
-  - amd64
+  - *reference_arch
   - arm64
 
 env:
@@ -21,12 +29,21 @@ env:
     - GRAVIS="$HOME/gravis" # Convenience variable for shortening commands
     - JDK="adopt@1.11.0-8" # Partial versions supported, adopt@1.11 would pull the latest adopt 1.11
   matrix: # variabili prese in modo selettivo, questa ci da 6 jdk
-    - JDK="adopt@1.11"
+    - *reference_jdk
     - JDK="adopt@1.8"
     - JDK="adopt@1.14"
     - JDK="adopt-openj9@1.11"
     - JDK="adopt-openj9@1.8"
     - JDK="adopt-openj9@1.14"
+
+stages:
+  - check
+  - test # esiste già, se non lo metto check verrebbe eseguito dopo test
+
+_reference_machine: &reference_machine
+  arch: *reference_arch
+  os: *reference_os
+  env: *reference_jdk
 
 jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o aggiunti
   exclude:
@@ -34,6 +51,13 @@ jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o ag
       env: JDK="adopt-openj9@1.8"
     - arch: arm64
       env: JDK="adopt-openj9@1.14"
+    - <<: *reference_machine # metto qua dentro la cosa puntata da refmachine
+      stage: check
+  include: # i job messi nell'include fanno override di quelli definiti nel comportamento generale
+    - <<: *reference_machine
+      stage: check
+      script:
+        - travis_retry ./gradlew check
 
 
 before_install:
@@ -44,4 +68,4 @@ install:
   - true # disable install
 
 script:
-  - travis_retry ./gradlew check # da problemi permessi via windows perche git traccia i permessi di unix, altrimenti git update-index --chmod=+x gradlew, altrimenti scrivo sh gradlew check
+  - travis_retry ./gradlew test
