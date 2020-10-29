@@ -5,7 +5,6 @@ _reference_arch: &reference_arch
 _reference_jdk: &reference_jdk
                   JDK="adopt@1.11"
 
-
 language: minimal # java altrimenti nada windows
 
 git:
@@ -42,6 +41,8 @@ stages:
   - Kotlin Style Check
   - Complete Check
   - test # esiste già, se non lo metto check verrebbe eseguito dopo test
+  - name: Delivery
+    if: repo = MatteoCaval/lss-ci
 
 _reference_machine: &reference_machine
   arch: *reference_arch
@@ -82,7 +83,8 @@ jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o ag
       <<: *import_workspace
       script:
         - travis_retry ./gradlew check
-
+    - stage: Delivery
+      script: 'true'
 
 before_install:
   - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS # Check out the script set
