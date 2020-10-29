@@ -66,7 +66,7 @@ jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o ag
   include: # i job messi nell'include fanno override di quelli definiti nel comportamento generale
     - <<: *reference_machine
       stage: Compile
-      script: ./gradlew compile --parallel
+      script: ./gradlew compileKotlin --parallel
       workspaces:
         create: *workspace_name
         paths:
