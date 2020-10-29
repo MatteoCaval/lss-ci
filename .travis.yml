@@ -42,7 +42,8 @@ stages:
   - Compile
   - Kotlin Style Check
   - Complete Check
-  - test # esiste già, se non lo metto check verrebbe eseguito dopo test
+  - name: test # esiste già, se non lo metto check verrebbe eseguito dopo test
+    if: 'commit_message !~ /\[\s*skip(?: |-|\.)test\s*\].*/'
   - name: Delivery
     if: repo = MatteoCaval/lss-ci
 
