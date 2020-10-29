@@ -39,7 +39,7 @@ env:
 stages:
   - Compile
   - Kotlin Style Check
-  - Check
+  - Complete Check
   - test # esiste già, se non lo metto check verrebbe eseguito dopo test
 
 _reference_machine: &reference_machine
@@ -63,7 +63,7 @@ jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o ag
       stage: Kotlin Style Check
       script: ./gradlew detekt ktlintCheck --parallel
     - <<: *reference_machine
-      stage: check
+      stage: Complete Check
       script:
         - travis_retry ./gradlew check
 
