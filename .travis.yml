@@ -28,6 +28,13 @@ env:
     - JDK="adopt-openj9@1.8"
     - JDK="adopt-openj9@1.14"
 
+jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o aggiunti
+  exclude:
+    - arch: arm64
+      env: JDK="adopt-openj9@1.8"
+    - arch: arm64
+      env: JDK="adopt-openj9@1.14"
+
 
 before_install:
   - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS # Check out the script set
