@@ -121,3 +121,12 @@ publishing {
         }
     }
 }
+
+if (System.getenv("CI") == "true") {
+    signing {
+        // vengono prese dalle variaibli ambiente in sto caso messe su travis come ORG_GRADLE_PROJECT_signingkey ecc..
+        val signingKey: String? by project
+        val signingPassword: String? by project
+        useInMemoryPgpKeys(signingKey, signingPassword)
+    }
+}

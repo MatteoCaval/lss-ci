@@ -88,6 +88,15 @@ jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o ag
         - travis_retry ./gradlew check
     - stage: Delivery
       script: 'true'
+#      roba commentata causa chiavi che non ho generato, tutta roba di delivery e deploy
+#      before_script:
+#        - openssl ...
+#        - export ORG_GRADLE_PROJECT_signignKey=${cat secrets.asc}
+#        - rm secret.asc
+#      script:
+#        - travis_retry ./gradlew publishMavenCentralPlublicationtoMavenRepository
+#      after_success:
+#        - ./gradlew publishPlugins -Pgradle.publish.key=$PLUGIN_PORTAL_KEY -Pgradle.publish.secret=$PLUGIN_PORTAL_SECTER
 
 before_install:
   - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS # Check out the script set
