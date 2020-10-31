@@ -1,4 +1,5 @@
-if: repo != head_repo # se qualcuno crea un branch sullo stesso repo e fa un pull request, faccio solo la build del branch e non della pr
+# se qualcuno crea un branch sullo stesso repo e fa un pull request, faccio solo la build del branch e non della pr
+if: repo != head_repo AND (tag IS blank OR tag =~ /\d+(\.\d+)*/) # un qualunque numero di numero almeno 1 seguito da un qualunque numero (alemno 0) sequido da almeno un numero
 
 _reference_os: &reference_os
                  linux
