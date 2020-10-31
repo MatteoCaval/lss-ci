@@ -132,5 +132,5 @@ if (System.getenv("CI") == "true") {
 }
 
 tasks.register("generateVersionFile") {
-    File("${buildDir}${File.separator}version").writeText(version.toString())
+    File("version").writeText(version.toString())
 }
