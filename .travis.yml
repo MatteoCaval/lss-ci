@@ -1,4 +1,4 @@
-if: repo != head_repo
+if: repo != head_repo # se qualcuno crea un branch sullo stesso repo e fa un pull request, faccio solo la build del branch e non della pr
 
 _reference_os: &reference_os
                  linux
@@ -97,6 +97,12 @@ jobs: #usata per indicare condizioni per i quali certi jobs vengono esclusi o ag
 #        - travis_retry ./gradlew publishMavenCentralPlublicationtoMavenRepository
 #      after_success:
 #        - ./gradlew publishPlugins -Pgradle.publish.key=$PLUGIN_PORTAL_KEY -Pgradle.publish.secret=$PLUGIN_PORTAL_SECTER
+      deploy:
+        - provider: releases # Deploys on GitHub Releases
+          file: build/libs/*.jar # Files to deploy
+          edge: true # opt in to the new deploy API
+          on: # filter
+            all_branches: true
 
 before_install:
   - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS # Check out the script set
